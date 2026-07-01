@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AiSearch from './AiSearch'
+import AISearch from './AISearch'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -74,7 +74,7 @@ export default function App() {
     isQuestion ? (
       <>
         <button className="back-btn" onClick={() => {setIsQuestion(false)}}>Back</button>
-        <AiSearch query={searchQuery} api_key={API_KEY || ""}/>
+        <AISearch query={searchQuery} api_key={API_KEY || ""}/>
       </>
     ) : 
     <>
