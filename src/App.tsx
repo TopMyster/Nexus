@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import AISearch from './AISearch'
 
-function App() {
+export default function App() {
   const [searchQuery, setSearchQuery] = useState("")
   const [isQuestion, setIsQuestion] = useState(false)
-  const API_KEY = ""
+  const API_KEY = "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"
 
   async function search(query: string) {
     if (query.includes(".") || query.includes("https://")) {
@@ -19,7 +19,7 @@ function App() {
     setIsQuestion(isAIQuestion)
 
     if (!isAIQuestion) {
-      window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_blank")
+      window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_self")
     }
   }
 
@@ -70,13 +70,15 @@ function App() {
   }
 
   return (
-    !isQuestion ? (
-      <>
-        <input placeholder='Search a query' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}}/>
+    isQuestion ? (
+      <AISearch query={searchQuery} api_key={API_KEY}/>
+    ) : 
+    <>
+      <h1 className='logo'>Nexus</h1>
+      <div className='search-box'>
+        <input placeholder='Search a query' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} onKeyDown={(e) => e.key === "Enter" && search(searchQuery)}/>
         <button onClick={() => {search(searchQuery)}}>Search</button>
-      </>
-    ) : <AISearch query={searchQuery}/>
+      </div>
+    </>
   )
 }
-
-export default App
