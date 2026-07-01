@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AiSearch from './AISearch'
+import AiSearch from './AiSearch'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("")
