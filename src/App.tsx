@@ -4,7 +4,7 @@ import AISearch from './AISearch'
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("")
   const [isQuestion, setIsQuestion] = useState(false)
-  const API_KEY = "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"
+  const API_KEY = ""
 
   async function search(query: string) {
     if (query.includes(".") || query.includes("https://")) {
