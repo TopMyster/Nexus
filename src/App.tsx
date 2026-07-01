@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import AISearch from './AISearch'
+import AiSearch from './AISearch'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("")
   const [isQuestion, setIsQuestion] = useState(false)
-  const API_KEY = ""
+  const [isSettings, setIsSettings] = useState(false)
+  const API_KEY = localStorage.getItem("api_key")
 
   async function search(query: string) {
     if (query.includes(".") || query.includes("https://")) {
@@ -71,14 +72,28 @@ export default function App() {
 
   return (
     isQuestion ? (
-      <AISearch query={searchQuery} api_key={API_KEY}/>
+      <>
+        <button className="back-btn" onClick={() => {setIsQuestion(false)}}>Back</button>
+        <AiSearch query={searchQuery} api_key={API_KEY || ""}/>
+      </>
     ) : 
     <>
       <h1 className='logo'>Nexus</h1>
       <div className='search-box'>
-        <input placeholder='Search a query' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} onKeyDown={(e) => e.key === "Enter" && search(searchQuery)}/>
+        <input placeholder='Search anything...' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} onKeyDown={(e) => e.key === "Enter" && search(searchQuery)}/>
         <button onClick={() => {search(searchQuery)}}>Search</button>
       </div>
+            {!API_KEY ? <h5 style={{ opacity: 0.5 }}>Please enter settings to configure your API KEY</h5> : null}
+      <button className='settings-button' onClick={() => {setIsSettings(!isSettings)}}>Settings</button>
+      {isSettings && (
+        <div className='settings'>
+          <div>
+            <h3 style={{ margin: "0px 5px 0px" }}>OpenRouter</h3>
+            <h5 style={{ margin: "10px 0px 25px", opacity: 0.5 }}>Please type in your API Key</h5>
+          </div>
+          <input placeholder='Type in your API Key' onChange={(e) => {localStorage.setItem("api_key", e.target.value)}}/>
+        </div>
+      )}
     </>
   )
 }

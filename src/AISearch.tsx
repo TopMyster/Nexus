@@ -63,7 +63,7 @@ export default function AISearch({query, api_key}: Props) {
                 <div key={index} className={message.role === "user" ? "user-msg" : "ai-msg"}>{message.text}</div>
             ))}
             <div className='input-box'>
-                <input placeholder='Search a query' value={text} onChange={(e) => {setText(e.target.value)}} onKeyDown={(e) => e.key === "Enter" && askAI(text, api_key)}/>
+                <input placeholder='Chat with Nexus' value={text} onChange={(e) => {setText(e.target.value)}} onKeyDown={(e) => e.key === "Enter" && askAI(text, api_key)}/>
                 <button onClick={() => {askAI(text, api_key)}}>Ask</button>
             </div>
         </div>

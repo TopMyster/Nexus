@@ -1,0 +1,160 @@
+html, body{
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-style: normal;
+    font-family: "openrunde";
+}
+
+@font-face {
+    font-weight: bold;
+    font-family: "openrunde";
+    src: url("/openrunde-medium.woff");
+}
+
+@font-face {
+    font-style: normal;
+    font-family: "openrunde";
+    src: url("/openrunde-regular.woff");
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 80px;
+}
+
+.search-box {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 0.5px rgba(54, 54, 54, 0.258) solid;
+    padding: 12px;
+    width: 60vw;
+    max-width: 700px;
+    min-width: 250px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.052);
+    margin: auto
+}
+
+.search-box input {
+    font-family: "openrunde";
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding: 10px 5px 15px;
+}
+
+.search-box button {
+    background-color: rgba(0, 0, 0, 0.884);
+    color: white;
+    border: 0.5px rgba(255, 255, 255, 0.253) solid;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 5px 8px;
+    width: 100%;
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.search-box button:active {
+    transform: scale(0.9);
+}
+
+.settings-button {
+    background-color: transparent;
+    font-weight: bold;
+    border: none; 
+    margin: 0px 0px 30px;
+    padding: 10px;
+    opacity: 0.5;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 0.5px rgba(54, 54, 54, 0.258) solid;
+    padding: 30px 30px;
+    width: fit-content;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.052);
+    margin: auto;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 8px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0.5px rgba(54, 54, 54, 0.258) solid;
+    padding: 12px;
+    width: 60vw;
+    max-width: 700px;
+    min-width: 250px;
+    bottom: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.052);
+    margin: auto
+}
+
+.input-box input {
+    font-family: "openrunde";
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding: 10px 5px 15px;
+}
+
+.input-box button {
+    background-color: rgba(0, 0, 0, 0.884);
+    color: white;
+    border: 0.5px rgba(255, 255, 255, 0.253) solid;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 5px 8px;
+    width: 100%;
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.input-box button:active {
+    transform: scale(0.9);
+}
+
+.user-msg {
+    margin-left: auto;
+    margin-right: 5vw;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    background-color: black;
+    padding: 12px;
+    width: fit-content;
+    color: white;
+    border-radius: 8px;
+}
+
+.ai-msg {
+    width: 60vw;
+}
+
+.back-btn {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+}
