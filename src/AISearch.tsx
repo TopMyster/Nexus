@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "motion/react"
+import { FaArrowUp } from "react-icons/fa6"
 
 interface Props {
     query: string,
@@ -65,7 +66,7 @@ export default function AISearch({query, api_key}: Props) {
             ))}
             <motion.div className='input-box' initial={{ y: 50 }} animate={{ y: 0 }} >
                 <input placeholder='Chat with Nexus' value={text} onChange={(e) => {setText(e.target.value)}} onKeyDown={(e) => e.key === "Enter" && askAI(text, api_key)}/>
-                <motion.button initial={{ scale: 1, opacity: 1 }} whileTap={{ scale: 0.8, opacity: 0.8 }} onClick={() => {askAI(text, api_key)}}>Ask</motion.button>
+                <motion.button initial={{ scale: 1, opacity: 1 }} whileTap={{ scale: 0.8, opacity: 0.5 }} onClick={() => {askAI(text, api_key)}}><FaArrowUp size={15}/></motion.button>
             </motion.div>
         </AnimatePresence>
     )

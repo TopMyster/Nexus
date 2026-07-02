@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import AISearch from './AISearch'
+import { IoSearch } from "react-icons/io5";
+import { IoIosArrowBack, IoIosSettings } from "react-icons/io";
 import { motion, AnimatePresence } from "motion/react"
 
 export default function App() {
@@ -74,7 +76,7 @@ export default function App() {
   return (
     isQuestion ? (
       <AnimatePresence>
-        <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="back-btn" onClick={() => {setIsQuestion(false)}}>Back</motion.button>
+        <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="back-btn" onClick={() => {setIsQuestion(false)}}><IoIosArrowBack size={25}/></motion.button>
         <AISearch query={searchQuery} api_key={API_KEY || ""}/>
       </AnimatePresence>
     ) : 
@@ -82,10 +84,18 @@ export default function App() {
       <motion.h1 initial={{ scale: 1.3 }} animate={{ scale: 1 }} className='logo'>Nexus</motion.h1>
       <motion.div className='search-box' initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
         <input placeholder='Search anything...' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} onKeyDown={(e) => e.key === "Enter" && search(searchQuery)}/>
-        <motion.button initial={{ scale: 1, opacity: 1 }} whileTap={{ scale: 0.8, opacity: 0.8 }} onClick={() => {search(searchQuery)}}>Search</motion.button>
+        <motion.button initial={{ scale: 1, opacity: 1 }} whileTap={{ scale: 0.8, opacity: 0.8 }} onClick={() => {search(searchQuery)}}>
+          <div style={{ display: 'flex', flexDirection: "row", gap: 3 }}>
+            <IoSearch size={15}/>Search
+          </div>
+        </motion.button>
       </motion.div>
             {!API_KEY ? <motion.h5 initial={{ scale: 1, opacity: 1 }} exit={{ opacity: 0, scale: 0.2 }} style={{ opacity: 0.6 }}>Please enter settings to configure your API KEY</motion.h5> : null}
-      <motion.button className='settings-button' initial={{ scale: 1, opacity: 0.5 }} whileTap={{ scale: 0.8, opacity: 0 }} onClick={() => {setIsSettings(!isSettings)}}>Settings</motion.button>
+      <motion.button className='settings-button' initial={{ scale: 1, opacity: 0.5 }} whileTap={{ scale: 0.8, opacity: 0 }} onClick={() => {setIsSettings(!isSettings)}}>
+        <div style={{ display: 'flex', flexDirection: "row", gap: 2 }}>
+          <IoIosSettings size={14}/>Settings
+        </div>
+      </motion.button>
       {isSettings && (
         <motion.div className='settings' initial={{ scale: 1.2, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.5, opacity: 0 }}>
           <div>
