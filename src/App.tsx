@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import AISearch from './AISearch'
+import { motion, AnimatePresence } from "motion/react"
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -72,28 +73,28 @@ export default function App() {
 
   return (
     isQuestion ? (
-      <>
-        <button className="back-btn" onClick={() => {setIsQuestion(false)}}>Back</button>
+      <AnimatePresence>
+        <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="back-btn" onClick={() => {setIsQuestion(false)}}>Back</motion.button>
         <AISearch query={searchQuery} api_key={API_KEY || ""}/>
-      </>
+      </AnimatePresence>
     ) : 
-    <>
-      <h1 className='logo'>Nexus</h1>
-      <div className='search-box'>
+    <AnimatePresence>
+      <motion.h1 initial={{ scale: 1.3 }} animate={{ scale: 1 }} className='logo'>Nexus</motion.h1>
+      <motion.div className='search-box' initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
         <input placeholder='Search anything...' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} onKeyDown={(e) => e.key === "Enter" && search(searchQuery)}/>
-        <button onClick={() => {search(searchQuery)}}>Search</button>
-      </div>
-            {!API_KEY ? <h5 style={{ opacity: 0.5 }}>Please enter settings to configure your API KEY</h5> : null}
-      <button className='settings-button' onClick={() => {setIsSettings(!isSettings)}}>Settings</button>
+        <motion.button initial={{ scale: 1, opacity: 1 }} whileTap={{ scale: 0.8, opacity: 0.8 }} onClick={() => {search(searchQuery)}}>Search</motion.button>
+      </motion.div>
+            {!API_KEY ? <motion.h5 initial={{ scale: 1, opacity: 1 }} exit={{ opacity: 0, scale: 0.2 }} style={{ opacity: 0.6 }}>Please enter settings to configure your API KEY</motion.h5> : null}
+      <motion.button className='settings-button' initial={{ scale: 1, opacity: 0.5 }} whileTap={{ scale: 0.8, opacity: 0 }} onClick={() => {setIsSettings(!isSettings)}}>Settings</motion.button>
       {isSettings && (
-        <div className='settings'>
+        <motion.div className='settings' initial={{ scale: 1.2, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.5, opacity: 0 }}>
           <div>
             <h3 style={{ margin: "0px 5px 0px" }}>OpenRouter</h3>
             <h5 style={{ margin: "10px 0px 25px", opacity: 0.5 }}>Please type in your API Key</h5>
           </div>
           <input placeholder='Type in your API Key' onChange={(e) => {localStorage.setItem("api_key", e.target.value)}}/>
-        </div>
+        </motion.div>
       )}
-    </>
+    </AnimatePresence>
   )
 }

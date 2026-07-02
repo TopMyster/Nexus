@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "motion/react"
 
 interface Props {
     query: string,
@@ -58,14 +59,14 @@ export default function AISearch({query, api_key}: Props) {
     }, [query, api_key])
     
     return (
-        <div>
+        <AnimatePresence>
             {messages.map((message, index) => (
-                <div key={index} className={message.role === "user" ? "user-msg" : "ai-msg"}>{message.text}</div>
+                <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} key={index} className={message.role === "user" ? "user-msg" : "ai-msg"}>{message.text}</motion.div>
             ))}
-            <div className='input-box'>
+            <motion.div className='input-box' initial={{ y: 50 }} animate={{ y: 0 }} >
                 <input placeholder='Chat with Nexus' value={text} onChange={(e) => {setText(e.target.value)}} onKeyDown={(e) => e.key === "Enter" && askAI(text, api_key)}/>
-                <button onClick={() => {askAI(text, api_key)}}>Ask</button>
-            </div>
-        </div>
+                <motion.button initial={{ scale: 1, opacity: 1 }} whileTap={{ scale: 0.8, opacity: 0.8 }} onClick={() => {askAI(text, api_key)}}>Ask</motion.button>
+            </motion.div>
+        </AnimatePresence>
     )
 }
