@@ -37,6 +37,7 @@ body {
 .logo {
     font-weight: bold;
     font-size: 80px;
+    cursor: pointer;
     color: var(--txt-color);
     user-select: none;
     -webkit-user-select: none;
