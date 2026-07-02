@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import AISearch from './AISearch'
 import { IoSearch } from "react-icons/io5";
 import { IoIosArrowBack, IoIosSettings } from "react-icons/io";
@@ -10,12 +10,17 @@ export default function App() {
   const [isSettings, setIsSettings] = useState(false)
   const API_KEY = localStorage.getItem("api_key")
 
+  const hasSearched = useRef(false)
+
   useEffect(() => {
+    if (hasSearched.current) return
+
     const path = window.location.pathname
     if (path && path !== "/") {
       const urlQuery = decodeURIComponent(path.slice(1)).trim()
 
       if (urlQuery) {
+        hasSearched.current = true
         setSearchQuery(urlQuery)
         search(urlQuery)
       }
