@@ -20,6 +20,7 @@ export default function AISearch({query, api_key}: Props) {
         const userMessage = { role: "user", text: query.trim() }
         const updatedHistory = [...messages, userMessage]
         setMessages(updatedHistory)
+        setText("")
 
         const cleanedLog = updatedHistory.map((message) => {
             return `${message.role}: ${message.text}`
