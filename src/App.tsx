@@ -66,7 +66,7 @@ export default function App() {
   async function checkQuestion(query: string) {
     const prompt = 
     `
-      You are a routing assistant for a search engine. Your job is to analyze the user's query and determine if it requires a conversational AI answer/explaination (true) or if it is a simple search keyword/phrase/single word (false).
+      You are a routing assistant for a search engine. Your job is to analyze the user's query and determine if it is a question and requires a conversational AI answer (true) or if it is a simple search keyword/phrase/single word (false).
 
       Classification Rules:
       - If the query is a question or asking for a specific link = true
