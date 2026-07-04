@@ -35,9 +35,12 @@ export default function App() {
   }
 
   async function search(query: string) {
-    if (!query || !query.trim()) return
+    const trimmedQuery = query.trim()
+    if (!trimmedQuery) return
 
-    try {
+    const urlLike = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/i.test(trimmedQuery)
+    if (urlLike) {
+      try {
        const hasProtocol = /^https?:\/\//i.test(query.trim())
        const testedURL = new URL(hasProtocol ? query.trim() : `https://${query.trim()}`)
 
@@ -45,8 +48,9 @@ export default function App() {
         window.open(testedURL, "_self")
         return
        }
-    } catch(e) {
-      console.error(e)
+      } catch(e) {
+        console.error(e)
+      }
     }
 
     const isAIQuestion = await checkQuestion(query)
@@ -62,19 +66,22 @@ export default function App() {
   async function checkQuestion(query: string) {
     const prompt = 
     `
-      You are a routing assistant for a search engine. Your job is to analyze the user's query and determine if it is a question meant for an AI, or a simple search term/keyword.
+      You are a routing assistant for a search engine. Your job is to analyze the user's query and determine if it requires a conversational AI explanation (true) or if it is a simple search keyword/phrase (false).
 
-      Analyze the following query: "${query}"
+      Classification Rules:
+      - If the query is an AI question or requires a complex explanation = true
+      - If the query is a simple search term, navigational phrase, or localized keyword = false
 
-      Respond strictly with only the word "true" or the word "false". Do not include any other text, JSON, markdown formatting, or explanations.
+      Examples:
+      Query: "Why is the sky blue?" -> true
+      Query: "weather in Tokyo" -> false
+      Query: "How do I fix a leaky faucet?" -> true      
+      Query: "fast food near me" -> false
 
-      - If it is an AI question = true
-      - If it is a search term = false
+      Respond with EXACTLY the word "true" or "false". Do not include any punctuation, quotes, markdown formatting, explanations, or extra text.
 
-      Example 1: "Why is the sky blue?" = true
-      Example 2: "weather in Tokyo" = false
-      Example 3: "How do I fix a leaky faucet?" = true      
-      Example 4: "fast food near me" = false
+      Analyze this query: 
+      "${query}"
     `
     try {
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {

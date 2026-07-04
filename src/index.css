@@ -26,6 +26,12 @@ body {
 @font-face {
     font-weight: bold;
     font-family: "openrunde";
+    src: url("/openrunde-bold.woff");
+}
+
+@font-face {
+    font-weight: 300;
+    font-family: "openrunde";
     src: url("/openrunde-medium.woff");
 }
 
@@ -36,7 +42,7 @@ body {
 }
 
 .logo {
-    font-weight: bold;
+    font-weight: 300;
     font-size: 80px;
     cursor: pointer;
     color: var(--txt-color);
@@ -168,7 +174,9 @@ button {
 }
 
 .ai-msg {
+    text-align: left;
     width: 60vw;
+    line-height: 1.5;
 }
 
 .back-btn {
