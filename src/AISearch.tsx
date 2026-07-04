@@ -68,7 +68,7 @@ export default function AISearch({query, api_key}: Props) {
     
     return (
         <AnimatePresence>
-            <div key={"msg-div"}  style={{ margin: 0, marginBottom: 150, overflow: "hidden" }}>
+            <div key={"msg-div"}  style={{ margin: 0, marginBottom: 150, overflow: "scroll" }}>
                 {messages.map((message, index) => (
                     <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} key={index} className={message.role === "user" ? "user-msg" : "ai-msg"}>{message.role === "user" ? <div>{message.text}</div> : <Markdown rehypePlugins={[rehypeRaw]}>{message.text}</Markdown>}</motion.div>
                 ))}
