@@ -27,6 +27,13 @@ export default function App() {
     }
   }, [])
 
+  function handleBack() {
+    window.history.pushState({}, "", "/")
+    hasSearched.current = false
+    setIsQuestion(false)
+    setSearchQuery("")
+  }
+
   async function search(query: string) {
     if (!query || !query.trim()) return
 
@@ -98,30 +105,33 @@ export default function App() {
   }
 
   return (
-    isQuestion ? (
-      <AnimatePresence>
-        <motion.button whileHover={{ scale: 1.1, opacity: 1 }} whileTap={{ scale: 0.95, opacity: 0.5 }} className="back-btn" onClick={() => {setIsQuestion(false)}}><IoIosArrowBack size={25}/></motion.button>
-        <AISearch query={searchQuery} api_key={API_KEY || ""}/>
-      </AnimatePresence>
-    ) : 
     <AnimatePresence>
-      <motion.h1 key={"logo"} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className='logo' onClick={() => {window.open("https://github.com/TopMyster/Nexus","_blank")} }>Nexus</motion.h1>
-      <motion.div key={"search-box"}  className='search-box' initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
-        <input key={"search-input"}  placeholder='Search anything...' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} onKeyDown={(e) => {if (e.key === "Enter") {search(e.currentTarget.value)}}}/>
-        <motion.button key={"Enter"}  initial={{ scale: 1, opacity: 1 }} whileTap={{ scale: 0.8, opacity: 0.8 }} onClick={() => {search(searchQuery)}}>
-          <div key={"btn-txt"}  style={{ display: 'flex', flexDirection: "row", gap: 3 }}>
-            <IoSearch size={15}/>Search
-          </div>
-        </motion.button>
-      </motion.div>
+      {isQuestion ? (
+          <>
+            <motion.button whileHover={{ scale: 1.1, opacity: 1 }} whileTap={{ scale: 0.95, opacity: 0.5 }} className="back-btn" onClick={() => {handleBack()}}><IoIosArrowBack size={25}/></motion.button>
+            <AISearch query={searchQuery} api_key={API_KEY || ""}/>
+          </>
+      ) : (
+        <>
+          <motion.h1 key={"logo"} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className='logo' onClick={() => {window.open("https://github.com/TopMyster/Nexus","_blank")} }>Nexus</motion.h1>
+          <motion.div key={"search-box"}  className='search-box' initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
+            <input key={"search-input"}  placeholder='Search anything...' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} onKeyDown={(e) => {if (e.key === "Enter") {search(e.currentTarget.value)}}}/>
+            <motion.button key={"Enter"}  initial={{ scale: 1, opacity: 1 }} whileTap={{ scale: 0.8, opacity: 0.8 }} onClick={() => {search(searchQuery)}}>
+              <div key={"btn-txt"}  style={{ display: 'flex', flexDirection: "row", gap: 3 }}>
+                <IoSearch size={15}/>Search
+              </div>
+            </motion.button>
+          </motion.div>
             {!API_KEY ? <motion.h5 initial={{ scale: 1, opacity: 1 }} exit={{ opacity: 0, scale: 0.2 }} style={{ opacity: 0.6 }}>Please enter settings to configure your API KEY</motion.h5> : null}
-      <motion.button key={"settings-btn"} className='settings-button' initial={{ scale: 1, opacity: 0.5 }} whileTap={{ scale: 0.8, opacity: 0 }} onClick={() => {setIsSettings(!isSettings)}}>
-        <div key={"settingsbtn-div"}  style={{ display: 'flex', flexDirection: "row", gap: 2 }}>
-          <IoIosSettings size={14}/>Settings
-        </div>
-      </motion.button>
-      {isSettings && (
-        <motion.div key={"settings"}  className='settings' initial={{ scale: 1.2, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.5, opacity: 0 }}>
+          <motion.button key={"settings-btn"} className='settings-button' style={{ opacity: isSettings ? 0.8 : 0.4 }} initial={{ scale: 1, opacity: 0.5 }} whileTap={{ scale: 0.8, opacity: 1 }} onClick={() => {setIsSettings(!isSettings)}}>
+            <div key={"settingsbtn-div"}  style={{ display: 'flex', flexDirection: "row", gap: 2 }}>
+              <IoIosSettings size={14}/>Settings
+            </div>
+          </motion.button>
+        </>
+      )}
+      {isSettings && !isQuestion && (
+        <motion.div key={"settings"}  className='settings' initial={{ y: 100 ,scale: 1.2, opacity: 0 }} animate={{ y: 0, scale: 1, opacity: 1 }} exit={{ scale: 0.6, opacity: 0 }}>
           <div>
             <h3 key={"or-header"}  style={{ margin: "0px 5px 0px" }}>OpenRouter</h3>
             <h5 key={"or-smalltxt"}  style={{ margin: "10px 0px 25px", opacity: 0.5 }}>Please type in your API Key</h5>
