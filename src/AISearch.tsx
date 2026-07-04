@@ -44,7 +44,7 @@ export default function AISearch({query, api_key}: Props) {
                 'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                model: 'google/gemma-4-31b-it',
+                model: 'deepseek/deepseek-v4-flash',
                 messages: [
                     {
                     role: 'user',
