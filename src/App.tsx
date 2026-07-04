@@ -66,17 +66,19 @@ export default function App() {
   async function checkQuestion(query: string) {
     const prompt = 
     `
-      You are a routing assistant for a search engine. Your job is to analyze the user's query and determine if it requires a conversational AI explanation (true) or if it is a simple search keyword/phrase (false).
+      You are a routing assistant for a search engine. Your job is to analyze the user's query and determine if it requires a conversational AI answer/explaination (true) or if it is a simple search keyword/phrase/single word (false).
 
       Classification Rules:
-      - If the query is an AI question or requires a complex explanation or asking for a specific link = true
-      - If the query is a simple search term, navigational phrase, or localized keyword = false
+      - If the query is a question or asking for a specific link = true
+      - If the query is a simple search term, navigational phrase, simple phrase, single word, or localized keyword = false
 
       Examples:
       Query: "Why is the sky blue?" -> true
       Query: "weather in Tokyo" -> false
       Query: "How do I fix a leaky faucet?" -> true      
       Query: "fast food near me" -> false
+      Query: "give the link to a fast food site" -> true
+      Query: "Spain soccer match" -> false
 
       Respond with EXACTLY the word "true" or "false". Do not include any punctuation, quotes, markdown formatting, explanations, or extra text.
 
