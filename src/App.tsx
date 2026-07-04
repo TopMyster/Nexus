@@ -91,7 +91,7 @@ export default function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'google/gemma-4-31b-it',
+          model: 'meta-llama/llama-3-8b-instruct',
           messages: [
             {
               role: 'user',
