@@ -69,7 +69,7 @@ export default function App() {
       You are a routing assistant for a search engine. Your job is to analyze the user's query and determine if it requires a conversational AI explanation (true) or if it is a simple search keyword/phrase (false).
 
       Classification Rules:
-      - If the query is an AI question or requires a complex explanation = true
+      - If the query is an AI question or requires a complex explanation or asking for a specific link = true
       - If the query is a simple search term, navigational phrase, or localized keyword = false
 
       Examples:
