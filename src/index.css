@@ -100,6 +100,7 @@ button {
 .settings-button {
     background-color: transparent;
     font-weight: bold;
+    color: var(--txt-color);
     border: none; 
     margin: 0px 0px 30px;
     padding: 10px;
