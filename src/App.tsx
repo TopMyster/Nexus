@@ -94,9 +94,11 @@ export default function App() {
         },
         body: JSON.stringify({
           model: 'meta-llama/llama-3-8b-instruct',
+          max_tokens: 5,
+          temperature: 0,
           messages: [
             {
-              role: 'user',
+              role: 'system',
               content: prompt
             },
           ],
