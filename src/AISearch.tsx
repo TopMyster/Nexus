@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react"
 import { FaArrowUp } from "react-icons/fa6"
 import Markdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
+import remarkGfm from "remark-gfm"
 
 interface Props {
     query: string,
@@ -30,7 +31,7 @@ export default function AISearch({query, api_key}: Props) {
         const prompt = 
             `
             1. You are Nexus, an AI assistant on the startpage called nexus. 
-            2. Provide accurate, clear, and conversational answers; keep responses concise and direct by default, only expanding when detail is necessary and always give good sources (in italics).
+            2. Provide accurate, clear, and conversational answers; keep responses concise and direct by default, only expanding when detail is necessary and always give good sources (in italics). 
             3. You have access to markdown and rehypeRaw; freely use rich formatting features like headers, code blocks, bulleted lists, bold, italics, and blockquotes when helpful, but all links must be written as raw HTML <a href="URL" target="_blank" rel="noopener noreferrer">Text</a> tags instead of Markdown syntax to ensure they open in a new tab.
             4. Do not tell me your reasoning unless I ask or the prompt.
 
@@ -50,7 +51,7 @@ export default function AISearch({query, api_key}: Props) {
                     role: 'user',
                     content: prompt
                     },
-                ],
+                ]
                 }),
             })
 
@@ -70,7 +71,7 @@ export default function AISearch({query, api_key}: Props) {
         <AnimatePresence>
             <div key={"msg-div"} className="msg-container">
                 {messages.map((message, index) => (
-                    <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} key={index} className={message.role === "user" ? "user-msg" : "ai-msg"}>{message.role === "user" ? <div>{message.text}</div> : <Markdown rehypePlugins={[rehypeRaw]}>{message.text}</Markdown>}</motion.div>
+                    <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} key={index} className={message.role === "user" ? "user-msg" : "ai-msg"}>{message.role === "user" ? <div>{message.text}</div> : <Markdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>{message.text}</Markdown>}</motion.div>
                 ))}
             </div>
             <motion.div key={"input-box"}  className='input-box' initial={{ y: 50 }} animate={{ y: 0 }} >
