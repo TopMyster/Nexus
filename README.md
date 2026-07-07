@@ -13,6 +13,6 @@ Sometimes we want to rely on AI and at other times we don't and Nexus understand
 
 ## Setup
 1. Set Nexus as your home page using https://nexusstart.vercel.app
-2. Then set it as your search engine using https://nexusstart.vercel.app/
+2. Then set it as your search engine using https://nexusstart.vercel.app/%s
 3. Enter you OpenRouter API in settings
 3. Now your all set!
