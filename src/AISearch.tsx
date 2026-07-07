@@ -76,7 +76,7 @@ export default function AISearch({query, api_key}: Props) {
             </div>
             <motion.div key={"input-box"}  className='input-box' initial={{ y: 50 }} animate={{ y: 0 }} >
                 <input key={"chat-input"} placeholder='Chat with Nexus' value={text} onChange={(e) => {setText(e.target.value)}} onKeyDown={(e) => {if (e.key === "Enter") {askAI(e.currentTarget.value, api_key)}}}/>
-                <motion.button key={"chat-btn"}  initial={{ scale: 1, opacity: 1 }} whileTap={{ scale: 0.8, opacity: 0.5 }}  onClick={() => {askAI(text, api_key)}}><FaArrowUp key={"FaArrowUp"}  size={15}/></motion.button>
+                <motion.button key={"chat-btn"}  initial={{ scale: 1, opacity: 1 }} whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.85}} onClick={() => {askAI(text, api_key)}}><FaArrowUp key={"FaArrowUp"}  size={15}/></motion.button>
             </motion.div>
         </AnimatePresence>
     )
