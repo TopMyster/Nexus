@@ -16,8 +16,8 @@ export default function App() {
     if (hasSearched.current) return
 
     const path = window.location.pathname
-    if (path && path !== "/") {
-      const urlQuery = decodeURIComponent(path.slice(1)).trim()
+    if (path && path !== "/search/") {
+      const urlQuery = decodeURIComponent(path.slice(8)).trim()
 
       if (urlQuery) {
         hasSearched.current = true
