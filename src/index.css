@@ -62,13 +62,7 @@ body {
     max-width: 700px;
     min-width: 300px;
     background-color: var(--bg-color);
-    box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.048);
-    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     margin: 40px 0 65px 0
-}
-
-.search-box:hover {
-    box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.08);
 }
 
 .search-box input {
@@ -93,7 +87,6 @@ body {
     font-size: 14px;
     margin-left: auto;
     width: fit-content;
-    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 button {
@@ -170,7 +163,6 @@ button {
     width: fit-content;
     margin-left: auto;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.052);
-    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .msg-container {
