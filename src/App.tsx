@@ -136,7 +136,7 @@ export default function App() {
             {!API_KEY ? <motion.h5 initial={{ scale: 1, opacity: 1 }} exit={{ opacity: 0, scale: 0.2 }} style={{ opacity: 0.6 }}>Please enter settings to configure your API KEY</motion.h5> : null}
           <motion.button key={"settings-btn"} className='settings-button' style={{ opacity: isSettings ? 0.8 : 0.3 }} initial={{ scale: 1, opacity: 0.3 }} whileTap={{ scale: 0.8, opacity: 1 }} onClick={() => {setIsSettings(!isSettings)}}>
             <div key={"settingsbtn-div"}  style={{ display: 'flex', flexDirection: "row", gap: 2 }}>
-              <IoIosSettings size={14}/>Settings
+              <IoIosSettings size={22}/>
             </div>
           </motion.button>
         </>
