@@ -126,7 +126,7 @@ export default function App() {
         <>
           <motion.h1 key={"logo"} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className='logo' onClick={() => {window.open("https://github.com/TopMyster/Nexus","_blank")} }>Nexus</motion.h1>
           <motion.div key={"search-box"}  className='search-box' initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
-            <input key={"search-input"}  placeholder='Search anything...' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} onKeyDown={(e) => {if (e.key === "Enter") {search(e.currentTarget.value)}}}/>
+            <input key={"search-input"} autoComplete="true"  placeholder='Search anything...' value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} onKeyDown={(e) => {if (e.key === "Enter") {search(e.currentTarget.value)}}}/>
             <motion.button key={"Enter"}  initial={{ scale: 1 }} whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.85}} onClick={() => {search(searchQuery)}}>
               <div key={"btn-txt"}  style={{ display: 'flex', flexDirection: "row", gap: 3 }}>
                 <IoSearch size={15}/>Search
