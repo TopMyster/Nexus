@@ -1,7 +1,7 @@
 # Nexus
 ### An AI powered Startpage and Search Engine
 
-https://github.com/user-attachments/assets/33e4f380-e90b-4594-9e21-3979680c5de9
+https://github.com/user-attachments/assets/67e1b7cf-bb60-42f2-a076-b9acfc2ee266
 
 Sometimes we want to rely on AI and at other times we don't and Nexus understands that. Nexus uses AI to decide whether your asking a question or typing in a search term.
 
