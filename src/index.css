@@ -87,6 +87,7 @@ body {
     font-size: 14px;
     margin-left: auto;
     width: fit-content;
+    overflow: hidden;
 }
 
 button {
@@ -109,6 +110,36 @@ button {
     right: 0;
     margin: 0 auto;
     width: fit-content;
+}
+
+.shimmer {
+    position: absolute;
+    inset: 0;
+    display: block;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--bg-color),
+        transparent
+    );
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: shimmer-move 3s infinite;
+    animation-play-state: paused;
+    transition: 1s;
+}
+
+.search-box button:hover .shimmer {
+    opacity: 0.2;
+    animation-play-state: running;
+}
+
+@keyframes shimmer-move {
+    to {
+        transform: translateX(100%);
+    }
 }
 
 .settings {
