@@ -154,6 +154,23 @@ button {
     margin: auto;
 }
 
+.settings input {
+    box-sizing: border-box;
+    border-radius: 12px;
+    margin: 5px;
+    border: 0.5px var(--border-color) solid;
+    padding: 10px 12px;
+}
+
+.settings button {
+    box-sizing: border-box;
+    border-radius: 12px;
+    background-color: var(--txt-color);
+    color: var(--bg-color);
+    border: 0.5px var(--border-color) solid;
+    padding: 10px 12px;
+}
+
 .input-box {
     display: flex;
     flex-direction: row;
@@ -238,4 +255,43 @@ button {
 a {
     color: var(--txt-color);
     font-weight: 300;
+}
+
+.shortcuts {
+    width: 60vw;
+    max-width: 800px;
+    min-width: 300px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.shortcut {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: 0.5px var(--border-color) solid;
+    padding: 10px 12px;
+    cursor: pointer;
+}
+
+.shortcut a {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0;
+}
+
+.shortcut h5 {
+    margin: 0px 15px 0px 15px;
+    text-decoration: none;
+}
+
+.shortcut img {
+    margin: 0px 0px;
 }

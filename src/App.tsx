@@ -125,6 +125,11 @@ export default function App() {
     }
   }
 
+  function fixUrl(url: string) {
+    const trimmed = url.trim()
+    if (!trimmed) return trimmed
+    return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
+  }
   function addShortcut() {
     const updated = [...shortcuts, {title: newShortcutTitle, url: newShortcutUrl}]
     setShortcuts(updated)
@@ -161,11 +166,13 @@ export default function App() {
             {!apiKey ? <motion.h5 key={"api-key-question"} initial={{ scale: 1, opacity: 1 }} exit={{ opacity: 0, scale: 0.2 }} style={{ opacity: 0.6 }}>Please enter settings to configure your API Key</motion.h5> : null}
           <motion.div className='shortcuts' key={"shortcuts"}>
             {shortcuts.map((sc, i) => (
-              <div key={i} className='shortcut'>
-                <img key={"shortcut-image"} src={`https://www.google.com/s2/favicons?domain=${sc.url}`}/>
-                <a href={sc.url} key={"shortcut-title"}>{sc.title}</a>
-                <FaRegTrashCan key={"trash-icon"} size={15} onClick={() => removeShortcut(sc.title, sc.url)}/>
-              </div>
+                <motion.div key={i} initial={{ y: 50, scale: 0.6 }} animate={{ y: 0, scale: 1 }} whileTap={{ scale: 0.8 }} className='shortcut'>
+                  <a href={fixUrl(sc.url)} key={"shortcut-url"} target='_self'>
+                    <img key={"shortcut-image"} src={`https://www.google.com/s2/favicons?domain=${sc.url}`}/>
+                    <h5 key={"shortcut-title"}>{sc.title}</h5>
+                  </a>
+                  <FaRegTrashCan key={"trash-icon"} opacity={0.5} size={15} onClick={() => removeShortcut(sc.title, sc.url)}/>
+                </motion.div>
             ))}
           </motion.div>
           <motion.button key={"settings-btn"} className='settings-button' style={{ opacity: isSettings ? 0.8 : 0.3 }} initial={{ scale: 0.8, opacity: 0.3 }} animate={{ scale: 1 }} whileTap={{ scale: 0.8, opacity: 1 }} onClick={() => {setIsSettings(!isSettings)}}>
