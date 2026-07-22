@@ -1,14 +1,20 @@
 import { useEffect, useState, useRef } from 'react'
 import AISearch from './AISearch'
 import { IoSearch } from "react-icons/io5";
+import { FaRegTrashCan } from "react-icons/fa6";
 import { IoIosArrowBack, IoIosSettings } from "react-icons/io";
 import { motion, AnimatePresence } from "motion/react"
+
+type Shortcut = {title: string, url: string}
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("")
   const [isQuestion, setIsQuestion] = useState(false)
   const [isSettings, setIsSettings] = useState(false)
-  const API_KEY = localStorage.getItem("api_key")
+  const [newShortcutTitle, setNewShortcutTitle] = useState("")
+  const [newShortcutUrl, setNewShortcutUrl] = useState("")
+  const [shortcuts, setShortcuts] = useState<Shortcut[]>(JSON.parse(localStorage.getItem("shortcuts") || "[]"))
+  const [apiKey, setApiKey] = useState<string>(localStorage.getItem("api_key") || "")
 
   const hasSearched = useRef(false)
 
@@ -81,32 +87,36 @@ export default function App() {
       Query: "Spain soccer match" -> false
 
       Respond with EXACTLY the word "true" or "false". Do not include any punctuation, quotes, markdown formatting, explanations, or extra text.
-
-      Analyze this query: 
-      "${query}"
     `
     try {
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'meta-llama/llama-3-8b-instruct',
-          max_tokens: 5,
+          model: 'openai/gpt-4o-mini',
+          max_tokens: 10,
           temperature: 0,
+          reasoning: {
+            enabled: false
+          },
           messages: [
             {
               role: 'system',
               content: prompt
             },
+            {
+              role: 'user',
+              content: query
+            }
           ],
         }),
       })
 
     const data = await response.json()
-    const result = data.choices[0].message.content.toLowerCase()
+    const result = (data.choices[0].message.content || data.choices[0].message.reasoning || "").toLowerCase()
     return result.includes("true")
 
     } catch(error) {
@@ -115,12 +125,26 @@ export default function App() {
     }
   }
 
+  function addShortcut() {
+    const updated = [...shortcuts, {title: newShortcutTitle, url: newShortcutUrl}]
+    setShortcuts(updated)
+    localStorage.setItem("shortcuts", JSON.stringify(updated))
+    setNewShortcutTitle("")
+    setNewShortcutUrl("")
+  }
+
+  function removeShortcut(title: string, url: string) {
+    const updated = shortcuts.filter((sc) => !(sc.title === title && sc.url === url))
+    setShortcuts(updated)
+    localStorage.setItem("shortcuts", JSON.stringify(updated))
+  }
+
   return (
     <AnimatePresence>
       {isQuestion ? (
           <>
             <motion.button whileHover={{ scale: 1.1, opacity: 1 }} whileTap={{ scale: 0.95, opacity: 0.5 }} className="back-btn" onClick={() => {handleBack()}}><IoIosArrowBack size={25}/></motion.button>
-            <AISearch query={searchQuery} api_key={API_KEY || ""}/>
+            <AISearch query={searchQuery} api_key={apiKey || ""}/>
           </>
       ) : (
         <>
@@ -134,7 +158,16 @@ export default function App() {
               </div>
             </motion.button>
           </motion.div>
-            {!API_KEY ? <motion.h5 key={"api-key-question"} initial={{ scale: 1, opacity: 1 }} exit={{ opacity: 0, scale: 0.2 }} style={{ opacity: 0.6 }}>Please enter settings to configure your API Key</motion.h5> : null}
+            {!apiKey ? <motion.h5 key={"api-key-question"} initial={{ scale: 1, opacity: 1 }} exit={{ opacity: 0, scale: 0.2 }} style={{ opacity: 0.6 }}>Please enter settings to configure your API Key</motion.h5> : null}
+          <motion.div className='shortcuts' key={"shortcuts"}>
+            {shortcuts.map((sc, i) => (
+              <div key={i} className='shortcut'>
+                <img key={"shortcut-image"} src={`https://www.google.com/s2/favicons?domain=${sc.url}`}/>
+                <a href={sc.url} key={"shortcut-title"}>{sc.title}</a>
+                <FaRegTrashCan key={"trash-icon"} size={15} onClick={() => removeShortcut(sc.title, sc.url)}/>
+              </div>
+            ))}
+          </motion.div>
           <motion.button key={"settings-btn"} className='settings-button' style={{ opacity: isSettings ? 0.8 : 0.3 }} initial={{ scale: 0.8, opacity: 0.3 }} animate={{ scale: 1 }} whileTap={{ scale: 0.8, opacity: 1 }} onClick={() => {setIsSettings(!isSettings)}}>
             <div key={"settingsbtn-div"}  style={{ display: 'flex', flexDirection: "row", gap: 2 }}>
               <IoIosSettings key={"setting-icon"} size={22}/>
@@ -148,7 +181,13 @@ export default function App() {
             <h3 key={"or-header"}  style={{ margin: "0px 5px 0px" }}>OpenRouter</h3>
             <h5 key={"or-smalltxt"}  style={{ margin: "8px 0px 25px", opacity: 0.5, fontWeight: 400 }}>Please enter your API Key in settings</h5>
           </div>
-          <input key={"or-input"}  placeholder='Type in your API Key' onChange={(e) => {localStorage.setItem("api_key", e.target.value)}}/>
+          <input key={"or-input"}  placeholder='Type in your API Key' onChange={(e) => {setApiKey(e.target.value); localStorage.setItem("api_key", e.target.value)}}/>
+          <h3>Add a Shortcut</h3>
+          <div>
+            <input placeholder='Enter Title'value={newShortcutTitle} onChange={(e) => {setNewShortcutTitle(e.target.value)}}/>
+            <input placeholder='Enter URL' value={newShortcutUrl} onChange={(e) => {setNewShortcutUrl(e.target.value)}}/>
+            <button onClick={addShortcut}>Add</button>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
